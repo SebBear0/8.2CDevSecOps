@@ -10,26 +10,26 @@ pipeline {
 
 		stage('Install Dependencies') {
 			steps {
-				sh 'nix develop --command npm install'
+				sh 'npm install'
 			}
 		}
 
 		stage('Run Tests') {
 			steps {
-				sh 'nix develop --command npm test || true' // Allows pipeline to continue despite test failures
+				sh 'npm test || true' // Allows pipeline to continue despite test failures
 			}
 		}
 
 		stage('Generate Coverage Report') {
 			steps {
 				// Ensure coverage report exists
-				sh 'nix develop --command npm run coverage || true'
+				sh 'npm run coverage || true'
 			}
 		}
 
 		stage('NPM Audit (Security Scan)') {
 			steps {
-				sh 'nix develop --command npm audit || true' // This will show known CVEs in the output
+				sh 'npm audit || true' // This will show known CVEs in the output
 			}
 		}
 
