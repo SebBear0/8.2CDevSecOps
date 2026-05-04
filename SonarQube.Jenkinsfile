@@ -34,15 +34,13 @@ pipeline {
 		}
 
 		stage('SonarCloud Analysis') {
+			environment {
+				SONAR_TOKEN = credentials('SONAR_TOKEN') 
+			}
 			steps {
-				environment {
-					SONAR_TOKEN = credentials('SONAR_TOKEN') 
-				}
-				steps {
-					sh """
-						sonar-scanner -Dsonar.token=${SONAR_TOKEN}
-					"""
-				}
+				sh """
+					sonar-scanner -Dsonar.token=${SONAR_TOKEN}
+				"""
 			}
 		}
 	} 
